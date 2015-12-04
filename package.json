@@ -1,0 +1,14 @@
+{
+  "name": "slide-zilla",
+  "version": "0.1.0",
+  "description": "Full page slides scroller that works on all screen sizes",
+  "main": "src/slidezilla.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "slides"
+  ],
+  "author": "Jelle Kralt <jellekralt@codezilla.nl>",
+  "license": "MIT"
+}
