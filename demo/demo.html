@@ -16,9 +16,17 @@
 <body>
 
 <div id="page">
-    <div id="page-nav">
-
-    </div>
+    <nav class="page-nav sz-nav-visible">
+        <a class="sz-nav-handle" title="Menu" href="javascript:void(0);">
+            <span class="fa fa-bars"></span>
+            menu
+        </a>
+        <ul class="sz-nav-items">
+            <li><a href="#slide1">Slide 1</a></li>
+            <li><a href="#slide2">Slide 2</a></li>
+            <li><a href="#slide3">Slide 3</a></li>
+        </ul>
+    </nav>
 
     <section id="slide1">
         <article class="content">
@@ -50,9 +58,9 @@
 <script>
     $(function() {
         $('#page').slidezilla({
-            navigation: '#page-nav',
+            navigation: '.page-nav',
             slide: 'section'
-        })
+        });
     });
 </script>
 </html>

@@ -10,7 +10,10 @@ var gulp = require('gulp');
 var config = {
     paths: {
         scripts: ['./src/**/*.js'],
-        less: './src/**/*.less'
+        less: './src/**/*.less',
+        demo: {
+            less: './demo/**/*.less'
+        }
     }
 };
 
@@ -39,6 +42,16 @@ gulp.task('build-less', function() {
         .pipe(gulp.dest('dist/'));
 });
 
+// Demo
+gulp.task('demo', function() {
+    return gulp.src(config.paths.demo.less)
+        .pipe(less())
+        .pipe(rename({
+            extname: '.css'
+        }))
+        .pipe(gulp.dest('demo/'));
+});
+
 // Lint
 gulp.task('lint', function() {
     return gulp.src(config.paths.scripts)
@@ -48,7 +61,9 @@ gulp.task('lint', function() {
 
 // Watch
 gulp.task('watch', function() {
-    gulp.watch(config.paths.scripts, ['lint']);
+    gulp.watch(config.paths.scripts, ['lint', 'build']);
+    gulp.watch(config.paths.less, ['build']);
+    gulp.watch(config.paths.demo.less, ['demo']);
 });
 
 // Serve

@@ -1,37 +1,95 @@
-html, body { height: 100%; }
-
+html,
 body {
-    margin-top: 40px;
-    font-size: 18px;
-    min-width: @screen-xs;
-    color: @white;
-    line-height: 1.4;
-    font-family: "Verdana", sans-serif;
+  height: 100%;
 }
-
-p { margin: 20px 0 0; }
-
-h1, h2 {
-    color: #59a62c;
-    font-family: Helvetica, Arial, sans-serif;
-    margin-bottom: 15px;
+body {
+  margin-top: 40px;
+  font-size: 18px;
+  min-width: 320px;
+  color: white;
+  line-height: 1.4;
+  font-family: Helvetica, Arial, sans-serif;
 }
-
+p {
+  margin: 20px 0 0;
+}
+a {
+  text-decoration: none;
+  color: #59a62c;
+}
+a:hover {
+  text-decoration: none;
+}
+h1,
+h2 {
+  color: #59a62c;
+  font-family: Helvetica, Arial, sans-serif;
+  margin-bottom: 15px;
+}
 /* Slides */
 #slide1 {
-    background-color: orange;
+  background-color: orange;
 }
-
 #slide2 {
-    background-color: green;
+  background-color: green;
 }
-
 #slide3 {
-    background-color: yellow;
+  background-color: blue;
 }
-
 article.content {
-    max-width: 1000px;
-    margin: 7% auto;
-    text-align: left;
+  max-width: 1000px;
+  margin: 7% auto;
+  text-align: left;
+}
+nav {
+  position: fixed;
+  z-index: 10;
+  top: -40px;
+  left: 0;
+  height: 40px;
+  background-color: white;
+  width: 100%;
+  -webkit-transition: all 300ms ease-out;
+  transition: all 300ms ease-out;
+}
+nav ul {
+  width: 235px;
+  margin: 0 auto;
+  padding: 0;
+  line-height: 0;
+  white-space: nowrap;
+}
+nav li {
+  display: inline-block;
+}
+nav li a {
+  line-height: 40px;
+  display: block;
+  padding: 0 10px;
+  -webkit-transition: all 300ms ease-out;
+  transition: all 300ms ease-out;
+}
+nav li a:target,
+nav li a:active,
+nav li a:hover {
+  background-color: #59a62c;
+  color: white;
+}
+@media screen and (max-width: 520px) {
+  nav li a {
+    padding: 0 5px;
+  }
+}
+nav .sz-nav-handle {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 15px;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 620px) {
+  nav .sz-nav-handle + ul li {
+    padding: 10px 0;
+    background-color: #222222;
+    border-bottom: 1px solid #161616;
+  }
 }
