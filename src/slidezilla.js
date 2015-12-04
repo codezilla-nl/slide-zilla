@@ -155,17 +155,23 @@
      */
     Slidezilla.prototype._addEventListeners = function() {
         var _this = this;
+        var handleLinkClick;
+
         $(window).on('scroll', this._throttle(_this._handleScroll));
         $(window).on('resize', this._throttle(_this._determineOffsets));
 
-        this.nav.handle.on('click', function() {
-            _this._toggleNavItems();
-        });
-
-        for (var i=0; i<this.nav.links.length; i++) {
-            this.nav.links[i].on('click', function(e) {
+        if(this.nav) {
+            handleLinkClick = function(e) {
                 _this._goTo(e, this);
+            };
+
+            this.nav.handle.on('click', function () {
+                _this._toggleNavItems();
             });
+
+            for (var i = 0; i < this.nav.links.length; i++) {
+                this.nav.links[i].on('click', handleLinkClick);
+            }
         }
     };
 
@@ -179,7 +185,7 @@
 
         this._determineActiveSlide(scrollTop, scrollBottom);
 
-        if(this.nav.handle.is(':hidden')) {
+        if(this.nav && this.nav.handle.is(':hidden')) {
             this._toggleNavbar(scrollTop < this.lastScrollTop && scrollTop >= 0);
         }
         this.lastScrollTop = scrollTop;
@@ -195,7 +201,7 @@
 
         e.preventDefault();
 
-        if(this.nav.handle.is(':visible')) {
+        if(this.nav && this.nav.handle.is(':visible')) {
             offset -= this.nav.handle.outerHeight();
         }
 
@@ -283,7 +289,7 @@
                     wait = false;
                 }, limit);
             }
-        }
+        };
     };
 
     /**
