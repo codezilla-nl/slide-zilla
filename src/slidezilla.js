@@ -1,11 +1,3 @@
-/*!
- *  Project: slidezilla.js
- *  Description: Full page slides scroller that works on all screen sizes
- *  Author: Jelle Kralt (jellekralt@codezilla.nl)
- *  Version: 0.1.0
- *  License: MIT
- */
-
 ;(function ( $, window, undefined ) {
 
     var pluginName = 'slidezilla';

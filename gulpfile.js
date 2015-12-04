@@ -2,10 +2,13 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync').create();
 var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
+var bump = require('gulp-bump');
+var header = require('gulp-header');
 var less = require('gulp-less');
 var rename = require('gulp-rename');
 var modRewrite = require('connect-modrewrite');
-var gulp = require('gulp');
+var runSequence = require('run-sequence');
+var argv = require('yargs').argv;
 
 var config = {
     paths: {
@@ -22,10 +25,23 @@ gulp.task('build', ['build-js', 'build-less'], function() {
 
 // Build
 gulp.task('build-js', function() {
+    var pkg = require('./package.json');
+    var banner = ['/**',
+        ' * <%= pkg.name %>',
+        ' * ',
+        ' * <%= pkg.description %>',
+        ' * ',
+        ' * @author <%= pkg.author %>',
+        ' * @version v<%= pkg.version %>',
+        ' * @license <%= pkg.license %>',
+        ' */',
+        ''].join('\n');
+
     return gulp.src(config.paths.scripts)
         .pipe(uglify({
             preserveComments: 'some'
         }))
+        .pipe(header(banner, { pkg : pkg } ))
         .pipe(rename({
             extname: '.min.js'
         }))
@@ -40,6 +56,23 @@ gulp.task('build-less', function() {
             extname: '.min.css'
         }))
         .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('release', function(cb) {
+    runSequence('bump', 'build', cb);
+});
+
+// Bump
+gulp.task('bump', function() {
+    var bumpOpts = {};
+
+    if ('v' in argv) {
+        bumpOpts.type = argv.v;
+    }
+
+    return gulp.src(['./package.json'])
+        .pipe(bump(bumpOpts))
+        .pipe(gulp.dest('./'));
 });
 
 // Demo
@@ -61,8 +94,8 @@ gulp.task('lint', function() {
 
 // Watch
 gulp.task('watch', function() {
-    gulp.watch(config.paths.scripts, ['lint', 'build']);
-    gulp.watch(config.paths.less, ['build']);
+    gulp.watch(config.paths.scripts, ['lint', 'build-js']);
+    gulp.watch(config.paths.less, ['build-less']);
     gulp.watch(config.paths.demo.less, ['demo']);
 });
 
