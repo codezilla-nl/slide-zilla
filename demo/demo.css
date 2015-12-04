@@ -1,0 +1,37 @@
+html, body { height: 100%; }
+
+body {
+    margin-top: 40px;
+    font-size: 18px;
+    min-width: @screen-xs;
+    color: @white;
+    line-height: 1.4;
+    font-family: "Verdana", sans-serif;
+}
+
+p { margin: 20px 0 0; }
+
+h1, h2 {
+    color: #59a62c;
+    font-family: Helvetica, Arial, sans-serif;
+    margin-bottom: 15px;
+}
+
+/* Slides */
+#slide1 {
+    background-color: orange;
+}
+
+#slide2 {
+    background-color: green;
+}
+
+#slide3 {
+    background-color: yellow;
+}
+
+article.content {
+    max-width: 1000px;
+    margin: 7% auto;
+    text-align: left;
+}
