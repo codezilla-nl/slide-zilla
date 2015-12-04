@@ -123,7 +123,7 @@
     };
 
     /**
-     * Adds classes to the tab elements based on the options
+     * Adds classes to the slide elements based on the options
      */
     Slidezilla.prototype._loadClasses = function() {
         // Add container class
@@ -168,6 +168,25 @@
     };
 
     /**
+     * Removes event listeners on the elements
+     * @private
+     */
+    Slidezilla.prototype._removeEventListeners = function() {
+        var _this = this;
+
+        $(window).off('scroll', this._throttle(_this._handleScroll));
+        $(window).off('resize', this._throttle(_this._determineOffsets));
+
+        if(this.nav) {
+            this.nav.handle.off('click');
+
+            for (var i = 0; i < this.nav.links.length; i++) {
+                this.nav.links[i].off('click');
+            }
+        }
+    };
+
+    /**
      * Handles the scroll event
      * @private
      */
@@ -177,7 +196,9 @@
 
         this._determineActiveSlide(scrollTop, scrollBottom);
 
+        // Toggle the navigation bar if not on mobile view
         if(this.nav && this.nav.handle.is(':hidden')) {
+            // Base the toggle on the scroll direction
             this._toggleNavbar(scrollTop < this.lastScrollTop && scrollTop >= 0);
         }
         this.lastScrollTop = scrollTop;
@@ -193,10 +214,12 @@
 
         e.preventDefault();
 
+        // Add navbar offset if on mobile
         if(this.nav && this.nav.handle.is(':visible')) {
             offset -= this.nav.handle.outerHeight();
         }
 
+        // Hide navigation items (mobile only)
         this._toggleNavItems(false);
 
         $('html, body').animate({scrollTop: offset}, 800, 'swing');
@@ -285,7 +308,7 @@
     };
 
     /**
-     * Toggles the navigation visibility
+     * Toggles the visibility of the navigation bar
      * @param {boolean} show
      * @private
      */
@@ -293,6 +316,11 @@
         this.nav.container.toggleClass(this.options.classes.navigationVisible, show);
     };
 
+    /**
+     * Toggles the visibility of the navigation items
+     * @param show
+     * @private
+     */
     Slidezilla.prototype._toggleNavItems = function(show) {
         this.nav.handle.toggleClass(this.options.classes.navigationHandleOpen, show);
     };
@@ -313,20 +341,17 @@
         });
     };
 
-
-
     //
     // PUBLIC FUNCTIONS
     //
-
 
     /**
      * Refreshes the plugin and all the panels (incl. added and removed panels)
      */
     Slidezilla.prototype.refresh = function() {
-
+        this._removeEventListeners();
+        this.init();
     };
-
 
     /**
      * This function can be used to get/set options
