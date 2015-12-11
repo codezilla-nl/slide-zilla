@@ -17,6 +17,7 @@
     height: auto !important;
     position: relative !important;
     top: 0 !important;
+    padding: 1px;
   }
 }
 .sz-nav.sz-nav-visible {
