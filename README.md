@@ -2,6 +2,7 @@
 ==============
 
 An easy to use plugin to create full screen page slides that supports all screen sizes.
+Check out a demo at: http://codezilla-nl.github.io/slide-zilla/
 
 Features
 =========
