@@ -6,6 +6,7 @@ var bump = require('gulp-bump');
 var header = require('gulp-header');
 var less = require('gulp-less');
 var rename = require('gulp-rename');
+var ghPages = require('gulp-gh-pages');
 var modRewrite = require('connect-modrewrite');
 var runSequence = require('run-sequence');
 var argv = require('yargs').argv;
@@ -59,7 +60,7 @@ gulp.task('build-less', function() {
 });
 
 gulp.task('release', function(cb) {
-    runSequence('bump', 'build', cb);
+    runSequence('bump', 'build', 'deploy', cb);
 });
 
 // Bump
@@ -73,6 +74,12 @@ gulp.task('bump', function() {
     return gulp.src(['./package.json'])
         .pipe(bump(bumpOpts))
         .pipe(gulp.dest('./'));
+});
+
+// Deploy
+gulp.task('deploy', function() {
+    return gulp.src(['./demo/**/*', './dist/**/*', './media/**/*'])
+        .pipe(ghPages());
 });
 
 // Demo
@@ -103,10 +110,10 @@ gulp.task('watch', function() {
 gulp.task('serve', ['watch'], function() {
     browserSync.init({
         server: {
-            baseDir: './',
+            baseDir: ['./demo', './dist', './media'],
             middleware: [
                 modRewrite([
-                    '^/$ /demo/demo.html'
+                    '^/$ /index.html'
                 ])
             ]
         }
