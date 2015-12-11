@@ -6,6 +6,7 @@
 @primary: #59a62c;
 @gray-base: #000;
 @gray-darker: lighten(@gray-base, 13.5%); // #222
+@gray-dark: #4C4C4A;
 
 html, body { height: 100%; }
 
@@ -29,22 +30,57 @@ a {
 }
 
 h1, h2 {
-    color: @primary;
+    color: @gray-dark;
     font-family: Helvetica, Arial, sans-serif;
     margin-bottom: 15px;
 }
 
 /* Slides */
 #slide1 {
-    background-color: orange;
+    .gradient(lighten(#B9FF90, 5%), lighten(#B9FF90, 0%));
+
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    /* Center fix for IE11 */
+    -ms-flex-pack: center;
+
+    min-height: 100%;
+    height: 100%;
+
+    .content {
+        margin: inherit;
+
+        h1 {
+            text-align: center;
+            line-height: 200px;
+
+            img {
+                position: relative;
+                top: 50px;
+                width: 820px;
+                height: 136px;
+            }
+        }
+        p.payoff {
+            text-align: center;
+            font-size: 26px;
+            color: @gray-dark;
+        }
+    }
+
 }
 
 #slide2 {
-    background-color: green;
+    .gradient(#59a62c, darken(#59a62c, 20%));
 }
 
 #slide3 {
-    background-color: blue;
+    .gradient(#580659, darken(#580659, 15%));
 }
 
 article.content {
@@ -114,4 +150,14 @@ nav {
             }
         }
     }
+}
+
+
+.gradient (@startColor: #eee, @endColor: white) {
+    background-color: @startColor;
+    background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+    background: -webkit-linear-gradient(top, @startColor, @endColor);
+    background: -moz-linear-gradient(top, @startColor, @endColor);
+    background: -ms-linear-gradient(top, @startColor, @endColor);
+    background: -o-linear-gradient(top, @startColor, @endColor);
 }
