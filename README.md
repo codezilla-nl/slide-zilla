@@ -1,7 +1,7 @@
 ![SLIDE-ZILLA](https://raw.githubusercontent.com/codezilla-nl/slide-zilla/master/media/logo.png)
 ==============
 
-An easy to use plugin to create full screen page slides that supports all screen sizes.
+An easy to use plugin to create full screen page slides that supports all screen sizes, no matter the content length.
 Check out a demo at: http://codezilla-nl.github.io/slide-zilla/
 
 Features
